@@ -927,17 +927,31 @@ class CuteStoryApp {
   }
 
   // ------------------------------------------------------------------------
-  // SCREEN 6: DIGITAL VIRTUAL MARRIAGE CERTIFICATE
+  // ------------------------------------------------------------------------
+  // SCREEN 6: DIGITAL VIRTUAL MARRIAGE CERTIFICATE & A4 DOWNLOAD
   // ------------------------------------------------------------------------
   initScreen6Certificate() {
     const btnClaimDate = document.getElementById('btnClaimDate');
     const btnSaveCert = document.getElementById('btnSaveCert');
+    const btnPreviewCert = document.getElementById('btnPreviewCert');
+    const btnPrintCert = document.getElementById('btnPrintCert');
     const btnReplay = document.getElementById('btnReplay');
     const dateClaimModal = document.getElementById('dateClaimModal');
     const modalCloseBtn = document.getElementById('modalCloseBtn');
     const btnCloseModal = document.getElementById('btnCloseModal');
     const btnRealMessenger = document.getElementById('btnRealMessenger');
 
+    // A4 Preview Modal elements
+    const certPreviewModal = document.getElementById('certPreviewModal');
+    const certModalCloseBtn = document.getElementById('certModalCloseBtn');
+    const btnCloseCertModal = document.getElementById('btnCloseCertModal');
+    const btnDownloadFromModal = document.getElementById('btnDownloadFromModal');
+    const btnPrintFromModal = document.getElementById('btnPrintFromModal');
+
+    this.cachedCertDataUrl = null;
+    this.isGeneratingCert = false;
+
+    // Date voucher modal
     if (btnClaimDate && dateClaimModal) {
       btnClaimDate.addEventListener('click', () => {
         cuteSound.playWeddingFanfare();
@@ -957,18 +971,46 @@ class CuteStoryApp {
     if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
     if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
 
-    // Custom date claim handler (runs placeholder JS function for database or Messenger link)
+    // Custom date claim handler
     if (btnRealMessenger) {
       btnRealMessenger.addEventListener('click', (e) => {
         this.handleClaimRealDate(e);
       });
     }
 
-    // Save/Print certificate
+    // MAIN REQUIREMENT: Click Save Certificate -> Download A4 Size Certificate Image
     if (btnSaveCert) {
       btnSaveCert.addEventListener('click', () => {
-        cuteSound.playPop();
-        window.print();
+        this.downloadA4Certificate();
+      });
+    }
+
+    // Preview A4 Modal
+    if (btnPreviewCert) {
+      btnPreviewCert.addEventListener('click', () => {
+        this.openCertPreviewModal();
+      });
+    }
+
+    // Print Buttons
+    const handlePrint = () => {
+      cuteSound.playPop();
+      window.print();
+    };
+    if (btnPrintCert) btnPrintCert.addEventListener('click', handlePrint);
+    if (btnPrintFromModal) btnPrintFromModal.addEventListener('click', handlePrint);
+
+    // Close A4 Modal
+    const closeCertModal = () => {
+      if (certPreviewModal) certPreviewModal.classList.add('hidden');
+    };
+    if (certModalCloseBtn) certModalCloseBtn.addEventListener('click', closeCertModal);
+    if (btnCloseCertModal) btnCloseCertModal.addEventListener('click', closeCertModal);
+
+    // Download from Modal
+    if (btnDownloadFromModal) {
+      btnDownloadFromModal.addEventListener('click', () => {
+        this.downloadA4Certificate();
       });
     }
 
@@ -989,6 +1031,585 @@ class CuteStoryApp {
         this.clearCanvas();
         this.goToScreen(1);
       });
+    }
+  }
+
+  showToast(message, icon = '📜') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = 'cute-toast';
+    toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add('toast-hiding');
+      setTimeout(() => toast.remove(), 350);
+    }, 3200);
+  }
+
+  // Generate ultra high-definition standard A4 Certificate (2480 x 1754 px at 300 DPI)
+  async generateA4CertificateCanvas() {
+    // Wait for web fonts to load for pristine typography
+    if (document.fonts && document.fonts.ready) {
+      try {
+        await document.fonts.ready;
+      } catch {}
+    }
+
+    // A4 Landscape dimensions in pixels (standard 300 DPI: 2480 x 1754)
+    const width = 2480;
+    const height = 1754;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+
+    // Helper: safely load image
+    const loadImage = (src) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
+    };
+
+    // Load assets in parallel
+    const [brideImg, groomImg] = await Promise.all([
+      loadImage('/resources/insta_pfp_nurayberry.png'),
+      loadImage('/resources/insta_pfp_ongkur.jpg')
+    ]);
+
+    // Load saved signature image if exists
+    let sigImg = null;
+    const savedSigData = localStorage.getItem('nuray_saved_signature');
+    if (savedSigData) {
+      sigImg = await loadImage(savedSigData);
+    } else if (this.sigCanvas && this.hasDrawn) {
+      sigImg = await loadImage(this.sigCanvas.toDataURL('image/png'));
+    }
+
+    // 1. BACKGROUND: Luxury ivory cream parchment with subtle radiant vignette
+    const bgGrad = ctx.createRadialGradient(width / 2, height / 2, 200, width / 2, height / 2, width * 0.7);
+    bgGrad.addColorStop(0, '#fffefb');
+    bgGrad.addColorStop(0.65, '#fef8ee');
+    bgGrad.addColorStop(1, '#f9edd7');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, width, height);
+
+    // Subtle decorative watermark paws in background
+    ctx.save();
+    ctx.font = '80px sans-serif';
+    ctx.fillStyle = 'rgba(224, 179, 78, 0.05)';
+    ctx.textAlign = 'center';
+    const watermarkCoords = [
+      [360, 380], [2120, 380], [360, 1400], [2120, 1400],
+      [1240, 480], [800, 1200], [1680, 1200]
+    ];
+    watermarkCoords.forEach(([wx, wy]) => {
+      ctx.fillText('🐾', wx, wy);
+    });
+    ctx.restore();
+
+    // 2. ORNATE TRIPLE ROYAL GOLD BORDERS
+    // Outer Thick Gold Frame
+    ctx.save();
+    ctx.strokeStyle = '#d49520';
+    ctx.lineWidth = 14;
+    ctx.strokeRect(50, 50, width - 100, height - 100);
+
+    // Middle Thin Gold Pin-Stripe
+    ctx.strokeStyle = '#f5c042';
+    ctx.lineWidth = 3.5;
+    ctx.strokeRect(68, 68, width - 136, height - 136);
+
+    // Inner Dashed Vintage Line
+    ctx.strokeStyle = '#c48312';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([12, 8]);
+    ctx.strokeRect(84, 84, width - 168, height - 168);
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // Four Ornate Gold Corner Medallions & Paw Prints
+    const corners = [
+      { x: 120, y: 120 },
+      { x: width - 120, y: 120 },
+      { x: 120, y: height - 120 },
+      { x: width - 120, y: height - 120 }
+    ];
+    corners.forEach(pt => {
+      ctx.save();
+      ctx.font = '54px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🐾', pt.x, pt.y);
+      ctx.restore();
+    });
+
+    // 3. ROYAL CERTIFICATE HEADER
+    // Top Crowns & Sparkles
+    ctx.save();
+    ctx.font = '48px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('👑   ✨   👑', width / 2, 160);
+
+    // Top Category Badge
+    ctx.font = '700 24px "Nunito", "Quicksand", sans-serif';
+    ctx.fillStyle = '#b87a0e';
+    ctx.letterSpacing = '2px';
+    ctx.fillText('OFFICIAL FELINE LOVE REGISTRY • VOWS OF ETERNAL DEVOTION', width / 2, 220);
+
+    // Main Title: CERTIFICATE OF ETERNAL FORGIVENESS
+    ctx.shadowColor = 'rgba(184, 122, 14, 0.25)';
+    ctx.shadowBlur = 12;
+    ctx.shadowOffsetY = 4;
+    ctx.font = '900 68px "Nunito", "Quicksand", sans-serif';
+    ctx.fillStyle = '#4a2818';
+    ctx.fillText('Certificate of Eternal Forgiveness', width / 2, 295);
+
+    // Subtitle: & Virtual Marriage
+    ctx.shadowColor = 'rgba(255, 91, 121, 0.25)';
+    ctx.shadowBlur = 10;
+    ctx.font = '700 86px "Dancing Script", cursive';
+    ctx.fillStyle = '#b81944';
+    ctx.fillText('& Virtual Marriage', width / 2, 385);
+    ctx.restore();
+
+    // Decorative Pink Ribbon Divider
+    ctx.save();
+    ctx.font = '36px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ff9ebb';
+    ctx.fillText('🎀   ~ • ~ • ~ • ~ • ~ • ~ • ~   🎀', width / 2, 445);
+    ctx.restore();
+
+    // Proclamation Text
+    ctx.save();
+    ctx.font = 'italic 500 32px "Quicksand", "Nunito", sans-serif';
+    ctx.fillStyle = '#6e4f5d';
+    ctx.textAlign = 'center';
+    ctx.fillText('Be it known to all kingdoms, cuddly cats, and pretty flowers that:', width / 2, 510);
+    ctx.restore();
+
+    // 4. COUPLE HIGHLIGHT CARDS (Bride, Love Union, Groom)
+    const centerY = 710;
+    const avatarRadius = 105;
+
+    // A. Bride Block (Nuray @nurayberry)
+    const brideX = 680;
+    ctx.save();
+    // Avatar Shadow & Border
+    ctx.shadowColor = 'rgba(255, 158, 187, 0.5)';
+    ctx.shadowBlur = 24;
+    ctx.shadowOffsetY = 6;
+    ctx.beginPath();
+    ctx.arc(brideX, centerY - 40, avatarRadius + 8, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffeef3';
+    ctx.fill();
+    ctx.lineWidth = 7;
+    ctx.strokeStyle = '#ff9ebb';
+    ctx.stroke();
+    ctx.restore();
+
+    // Draw Bride Avatar (clipped circular)
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(brideX, centerY - 40, avatarRadius, 0, Math.PI * 2);
+    ctx.clip();
+    if (brideImg) {
+      ctx.drawImage(brideImg, brideX - avatarRadius, (centerY - 40) - avatarRadius, avatarRadius * 2, avatarRadius * 2);
+    } else {
+      ctx.fillStyle = '#ffe4ec';
+      ctx.fillRect(brideX - avatarRadius, (centerY - 40) - avatarRadius, avatarRadius * 2, avatarRadius * 2);
+      ctx.font = '90px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('👰', brideX, centerY - 40);
+    }
+    ctx.restore();
+
+    // Bride Name
+    ctx.save();
+    ctx.font = '700 72px "Dancing Script", cursive';
+    ctx.fillStyle = '#b81944';
+    ctx.textAlign = 'center';
+    ctx.fillText('Nuray', brideX, centerY + 125);
+
+    // Bride Role Pill Badge (Pure title without IG username)
+    const bBadgeW = 210;
+    const bBadgeH = 46;
+    const bBadgeX = brideX - bBadgeW / 2;
+    const bBadgeY = centerY + 145;
+    ctx.fillStyle = '#ffe6ee';
+    ctx.strokeStyle = '#ffb8cc';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.roundRect(bBadgeX, bBadgeY, bBadgeW, bBadgeH, 23);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.font = '800 24px "Nunito", sans-serif';
+    ctx.fillStyle = '#b81944';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('👰 THE BRIDE', brideX, bBadgeY + bBadgeH / 2);
+    ctx.restore();
+
+    // B. Middle Love Union
+    const midX = width / 2;
+    ctx.save();
+    ctx.font = '64px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('💍 💞 💍', midX, centerY - 25);
+
+    ctx.font = '900 28px "Nunito", sans-serif';
+    ctx.fillStyle = '#d49520';
+    ctx.letterSpacing = '3px';
+    ctx.fillText('UNITED FOREVER', midX, centerY + 45);
+
+    ctx.font = 'italic 600 24px "Quicksand", sans-serif';
+    ctx.fillStyle = '#b87a0e';
+    ctx.fillText('In Pure Eternal Love', midX, centerY + 85);
+    ctx.restore();
+
+    // C. Groom Block (Ongkur)
+    const groomX = width - 680;
+    ctx.save();
+    // Avatar Shadow & Border
+    ctx.shadowColor = 'rgba(255, 170, 91, 0.5)';
+    ctx.shadowBlur = 24;
+    ctx.shadowOffsetY = 6;
+    ctx.beginPath();
+    ctx.arc(groomX, centerY - 40, avatarRadius + 8, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff4eb';
+    ctx.fill();
+    ctx.lineWidth = 7;
+    ctx.strokeStyle = '#ffaa5b';
+    ctx.stroke();
+    ctx.restore();
+
+    // Draw Groom Avatar (clipped circular)
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(groomX, centerY - 40, avatarRadius, 0, Math.PI * 2);
+    ctx.clip();
+    if (groomImg) {
+      ctx.drawImage(groomImg, groomX - avatarRadius, (centerY - 40) - avatarRadius, avatarRadius * 2, avatarRadius * 2);
+    } else {
+      ctx.fillStyle = '#fff0e5';
+      ctx.fillRect(groomX - avatarRadius, (centerY - 40) - avatarRadius, avatarRadius * 2, avatarRadius * 2);
+      ctx.font = '90px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🤵', groomX, centerY - 40);
+    }
+    ctx.restore();
+
+    // Groom Name
+    ctx.save();
+    ctx.font = '700 72px "Dancing Script", cursive';
+    ctx.fillStyle = '#d65910';
+    ctx.textAlign = 'center';
+    ctx.fillText('Ongkur', groomX, centerY + 125);
+
+    // Groom Role Pill Badge (Pure title without IG username)
+    const gBadgeW = 220;
+    const gBadgeH = 46;
+    const gBadgeX = groomX - gBadgeW / 2;
+    const gBadgeY = centerY + 145;
+    ctx.fillStyle = '#fff1e5';
+    ctx.strokeStyle = '#ffcfad';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.roundRect(gBadgeX, gBadgeY, gBadgeW, gBadgeH, 23);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.font = '800 24px "Nunito", sans-serif';
+    ctx.fillStyle = '#d65910';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🤵 THE GROOM', groomX, gBadgeY + gBadgeH / 2);
+    ctx.restore();
+
+    // 5. SACRED COVENANT PARCHMENT SCROLL BOX
+    const covW = 1680;
+    const covH = 200;
+    const covX = (width - covW) / 2;
+    const covY = 960;
+
+    ctx.save();
+    ctx.shadowColor = 'rgba(255, 91, 121, 0.12)';
+    ctx.shadowBlur = 18;
+    ctx.shadowOffsetY = 6;
+    ctx.fillStyle = '#fff6f8';
+    ctx.strokeStyle = '#ffd1dc';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.roundRect(covX, covY, covW, covH, 26);
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+
+    // Inner dashed accent border
+    ctx.save();
+    ctx.strokeStyle = '#ff9ebb';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([8, 6]);
+    ctx.beginPath();
+    ctx.roundRect(covX + 10, covY + 10, covW - 20, covH - 20, 18);
+    ctx.stroke();
+    ctx.restore();
+
+    // Covenant Text
+    ctx.save();
+    ctx.font = '600 32px "Nunito", "Quicksand", sans-serif';
+    ctx.fillStyle = '#4d2b38';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Ongkur is officially forgiven forever. In return, Ongkur vows to provide', width / 2, covY + 65);
+    ctx.fillText('lifetime cuddling rights, unlimited forehead kisses, delicious treats on demand,', width / 2, covY + 110);
+    ctx.fillText('and shared cozy blankets with Nuray forever and ever!', width / 2, covY + 155);
+    ctx.restore();
+
+    // 6. BOTTOM ROW: DATE OF VOWS, ROYAL GOLD WAX SEAL, AND DIGITAL SIGNATURE
+    const footerY = 1260;
+
+    // A. Left: Date of Vows
+    const dateX = 560;
+    ctx.save();
+    ctx.font = '800 24px "Nunito", sans-serif';
+    ctx.fillStyle = '#946d1b';
+    ctx.textAlign = 'center';
+    ctx.fillText('DATE OF VOWS', dateX, footerY);
+
+    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const dateString = new Date().toLocaleDateString('en-US', dateOptions);
+
+    ctx.font = '700 46px "Dancing Script", cursive';
+    ctx.fillStyle = '#3a2012';
+    ctx.fillText(dateString, dateX, footerY + 65);
+
+    // Gold line
+    ctx.strokeStyle = '#f2ca6b';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(dateX - 190, footerY + 95);
+    ctx.lineTo(dateX + 190, footerY + 95);
+    ctx.stroke();
+
+    ctx.font = 'italic 500 22px "Quicksand", sans-serif';
+    ctx.fillStyle = '#9c808d';
+    ctx.fillText('Under the Whisker Stars ✨', dateX, footerY + 130);
+    ctx.restore();
+
+    // B. Center: 3D Royal Gold Seal
+    const sealX = width / 2;
+    const sealY = footerY + 55;
+    const sealRadius = 90;
+
+    ctx.save();
+    // Seal Ribbon streamers
+    ctx.fillStyle = '#b81944';
+    ctx.beginPath();
+    ctx.moveTo(sealX - 25, sealY + 60);
+    ctx.lineTo(sealX - 55, sealY + 175);
+    ctx.lineTo(sealX - 25, sealY + 155);
+    ctx.lineTo(sealX + 5, sealY + 175);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = '#991136';
+    ctx.beginPath();
+    ctx.moveTo(sealX + 5, sealY + 60);
+    ctx.lineTo(sealX + 55, sealY + 175);
+    ctx.lineTo(sealX + 25, sealY + 155);
+    ctx.lineTo(sealX - 5, sealY + 175);
+    ctx.closePath();
+    ctx.fill();
+
+    // Wax Seal Body
+    ctx.shadowColor = 'rgba(184, 134, 20, 0.45)';
+    ctx.shadowBlur = 24;
+    ctx.shadowOffsetY = 8;
+    const sealGrad = ctx.createRadialGradient(sealX - 20, sealY - 20, 15, sealX, sealY, sealRadius);
+    sealGrad.addColorStop(0, '#fff0a8');
+    sealGrad.addColorStop(0.5, '#e5b33b');
+    sealGrad.addColorStop(0.85, '#b88614');
+    sealGrad.addColorStop(1, '#855e09');
+    ctx.fillStyle = sealGrad;
+    ctx.beginPath();
+    ctx.arc(sealX, sealY, sealRadius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Seal Ring & Engravings
+    ctx.save();
+    ctx.strokeStyle = '#6b4d02';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([6, 5]);
+    ctx.beginPath();
+    ctx.arc(sealX, sealY, sealRadius - 12, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '900 16px "Nunito", sans-serif';
+    ctx.fillStyle = '#4a3400';
+    ctx.fillText('★  ★  ★', sealX, sealY - 45);
+
+    ctx.font = '40px sans-serif';
+    ctx.fillText('💍🐾', sealX, sealY - 8);
+
+    ctx.font = '900 19px "Nunito", sans-serif';
+    ctx.fillStyle = '#3d2800';
+    ctx.fillText('100% FORGIVEN', sealX, sealY + 34);
+
+    ctx.font = '800 13px "Nunito", sans-serif';
+    ctx.fillStyle = '#5c4008';
+    ctx.fillText('ETERNAL COVENANT', sealX, sealY + 54);
+    ctx.restore();
+
+    // C. Right: Bride's Signature
+    const sigX = width - 560;
+    ctx.save();
+    ctx.font = '800 24px "Nunito", sans-serif';
+    ctx.fillStyle = '#946d1b';
+    ctx.textAlign = 'center';
+    ctx.fillText("NURAY'S SIGNATURE", sigX, footerY);
+
+    // Draw the bride's digital signature
+    if (sigImg) {
+      // Calculate aspect-preserving box
+      const maxW = 280;
+      const maxH = 80;
+      const aspect = sigImg.width / sigImg.height;
+      let drawW = maxW;
+      let drawH = drawW / aspect;
+      if (drawH > maxH) {
+        drawH = maxH;
+        drawW = drawH * aspect;
+      }
+      ctx.drawImage(sigImg, sigX - drawW / 2, (footerY + 50) - drawH / 2, drawW, drawH);
+    } else {
+      ctx.font = '700 52px "Dancing Script", cursive';
+      ctx.fillStyle = '#b81944';
+      ctx.fillText('Nuray ♡', sigX, footerY + 60);
+    }
+
+    // Gold line
+    ctx.strokeStyle = '#f2ca6b';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(sigX - 190, footerY + 95);
+    ctx.lineTo(sigX + 190, footerY + 95);
+    ctx.stroke();
+
+    ctx.font = 'italic 500 22px "Quicksand", sans-serif';
+    ctx.fillStyle = '#9c808d';
+    ctx.fillText('Duly Signed & Sealed by the Bride 💕', sigX, footerY + 130);
+    ctx.restore();
+
+    // 7. BOTTOM VERIFICATION FOOTER
+    ctx.save();
+    ctx.font = '600 20px "Nunito", sans-serif';
+    ctx.fillStyle = '#a8929e';
+    ctx.textAlign = 'center';
+    ctx.fillText('Certified by the Celestial Whisker Council • Certificate ID: NURAY-ONGKUR-2026 • special-for-nuray.netlify.app', width / 2, height - 90);
+    ctx.restore();
+
+    return canvas;
+  }
+
+  async downloadA4Certificate() {
+    if (this.isGeneratingCert) return;
+    this.isGeneratingCert = true;
+
+    cuteSound.playPop();
+    this.showToast('Rendering high-res A4 certificate image... ✨', '🎨');
+
+    try {
+      const canvas = await this.generateA4CertificateCanvas();
+      
+      // Convert to blob and download
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          throw new Error('Failed to generate image blob');
+        }
+
+        const url = URL.createObjectURL(blob);
+        this.cachedCertDataUrl = url;
+
+        // Create trigger anchor
+        const downloadLink = document.createElement('a');
+        downloadLink.download = 'Nuray_and_Ongkur_Marriage_Certificate_A4.png';
+        downloadLink.href = url;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        downloadLink.remove();
+
+        // Celebration
+        cuteSound.playWeddingFanfare();
+        confetti({
+          particleCount: 100,
+          spread: 85,
+          origin: { y: 0.6 }
+        });
+
+        this.showToast('A4 Certificate downloaded successfully! 📜💖', '✅');
+        this.isGeneratingCert = false;
+
+        // Also update preview img if modal is open
+        const previewImg = document.getElementById('certPreviewImg');
+        if (previewImg) {
+          previewImg.src = url;
+          previewImg.classList.remove('hidden');
+        }
+      }, 'image/png');
+    } catch (err) {
+      console.error('Error generating A4 certificate:', err);
+      this.showToast('Error generating certificate. Retrying with print...', '⚠️');
+      this.isGeneratingCert = false;
+      window.print();
+    }
+  }
+
+  async openCertPreviewModal() {
+    const modal = document.getElementById('certPreviewModal');
+    const previewImg = document.getElementById('certPreviewImg');
+    const spinner = document.getElementById('certLoadingSpinner');
+
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    cuteSound.playPop();
+
+    if (this.cachedCertDataUrl && previewImg) {
+      previewImg.src = this.cachedCertDataUrl;
+      previewImg.classList.remove('hidden');
+      if (spinner) spinner.classList.add('hidden');
+      return;
+    }
+
+    if (spinner) spinner.classList.remove('hidden');
+    if (previewImg) previewImg.classList.add('hidden');
+
+    try {
+      const canvas = await this.generateA4CertificateCanvas();
+      const dataUrl = canvas.toDataURL('image/png');
+      this.cachedCertDataUrl = dataUrl;
+
+      if (previewImg) {
+        previewImg.src = dataUrl;
+        previewImg.classList.remove('hidden');
+      }
+      if (spinner) spinner.classList.add('hidden');
+    } catch (err) {
+      console.error('Preview render error:', err);
+      if (spinner) spinner.textContent = 'Preview rendering failed.';
     }
   }
 

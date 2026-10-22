@@ -1941,6 +1941,142 @@ html, body {
   text-decoration: none;
 }
 
+/* Gold Certificate Glow Button */
+.gold-glow-btn {
+  background: linear-gradient(135deg, #f5c042 0%, #e09f19 50%, #b87a0e 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 18px rgba(224, 159, 25, 0.45) !important;
+  border: 1.5px solid #ffe28a !important;
+  text-shadow: 0 1px 2px rgba(80, 45, 0, 0.35);
+  font-weight: 800;
+}
+.gold-glow-btn:hover {
+  background: linear-gradient(135deg, #fed45b 0%, #ebb024 50%, #c48312 100%) !important;
+  box-shadow: 0 6px 24px rgba(224, 159, 25, 0.6) !important;
+  transform: translateY(-2px) scale(1.02);
+}
+.cert-download-main-btn {
+  font-size: 14.5px;
+  padding: 12px 22px !important;
+}
+
+/* A4 Certificate Preview Modal */
+.cert-preview-modal-box {
+  max-width: 760px;
+  width: 95%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.modal-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff8e7;
+  color: #9c6c0a;
+  border: 1px solid #f2ca6b;
+  border-radius: var(--radius-pill);
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  margin: 0 auto 12px;
+}
+
+.cert-preview-img-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 240px;
+  max-height: 58vh;
+  overflow: auto;
+  border-radius: 14px;
+  border: 2px solid #f2ca6b;
+  background: #fdfaf5;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  padding: 8px;
+}
+
+.cert-loading-spinner {
+  font-size: 14px;
+  font-weight: 700;
+  color: #b87a0e;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cert-modal-rendered-img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.horizontal-btn-stack {
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.horizontal-btn-stack .cute-pill-btn,
+.horizontal-btn-stack .cute-ghost-btn {
+  flex: 1 1 140px;
+  min-width: 120px;
+}
+
+/* Cute Floating Toast Notification */
+.cute-toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  align-items: center;
+}
+
+.cute-toast {
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border: 2px solid #e09f19;
+  color: #4a2818;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 13.5px;
+  box-shadow: 0 10px 30px rgba(184, 122, 14, 0.28);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toastBounceIn 0.35s var(--ease-bounce) forwards;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.cute-toast.toast-hiding {
+  opacity: 0;
+  transform: translateY(15px) scale(0.92);
+}
+
+@keyframes toastBounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
