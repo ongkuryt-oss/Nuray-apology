@@ -1637,11 +1637,11 @@ html, body {
 }
 
 .spouse-avatar-wrap {
-  width: 58px;
-  height: 58px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   margin: 0 auto 6px;
-  border: 2.5px solid #ff9ebb;
+  border: 3px solid #ff9ebb;
   box-shadow: 0 4px 14px rgba(255, 158, 187, 0.4);
   overflow: hidden;
   background: #ffeef2;
@@ -1672,10 +1672,32 @@ html, body {
   font-family: var(--font-hand);
   font-size: 34px;
   line-height: 1.1;
+  margin-bottom: 3px;
 }
 
 .her-name { color: #b81944; }
 .him-name { color: #e66012; }
+
+.spouse-role-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 3px 11px;
+  border-radius: 999px;
+  background: #ffe6ee;
+  color: #b81944;
+  border: 1px solid #ffb8cc;
+  box-shadow: 0 2px 6px rgba(255, 158, 187, 0.25);
+  margin-top: 2px;
+}
+
+.spouse-role-badge.groom-badge {
+  background: #fff1e5;
+  color: #d65910;
+  border-color: #ffcfad;
+  box-shadow: 0 2px 6px rgba(255, 170, 91, 0.25);
+}
 
 .spouse-tag {
   display: block;
