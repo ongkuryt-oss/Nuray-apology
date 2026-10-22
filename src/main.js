@@ -296,9 +296,10 @@ class CuteStoryApp {
       const row = document.createElement('div');
       row.className = 'black-msg-bubble-row';
 
-      const avatar = document.createElement('span');
+      const avatar = document.createElement('img');
       avatar.className = 'row-mini-avatar';
-      avatar.textContent = '💜';
+      avatar.src = '/resources/insta_pfp_nurayberry.png';
+      avatar.alt = 'nurayberry';
 
       const bubble = document.createElement('div');
       bubble.className = 'black-msg-bubble';
