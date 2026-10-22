@@ -48,7 +48,6 @@ html, body {
   color: var(--text-main);
   user-select: none;
   -webkit-font-smoothing: antialiased;
-  margin-bottom:50px ;
 }
 
 /* Background floating cute shapes */
