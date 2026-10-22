@@ -1,0 +1,8 @@
+{
+  "name": "Nuray Apology & Virtual Wedding",
+  "description": "An interactive 6-screen romantic story apology and digital wedding experience featuring a cute fluffy white cat and chubby orange cat.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

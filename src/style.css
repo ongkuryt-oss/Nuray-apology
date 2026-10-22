@@ -1,0 +1,1993 @@
+/* ==========================================================================
+   ULTRA-CUTE ROMANTIC STORYBOOK PRESENTATION
+   Dedicated to Nuray (White Kitten) & Ongkur (Chubby Orange Cat)
+   ========================================================================== */
+
+:root {
+  --font-main: 'Nunito', 'Quicksand', -apple-system, sans-serif;
+  --font-hand: 'Caveat', 'Dancing Script', cursive;
+  --font-title: 'Shantell Sans', 'Nunito', cursive;
+  --font-fun: 'Gaegu', cursive;
+
+  /* Soft Pastel Palette */
+  --bg-creamy: #fff0f3;
+  --bg-gradient: linear-gradient(135deg, #ffeef2 0%, #fff6ec 50%, #fdf2f8 100%);
+  --card-bg: rgba(255, 255, 255, 0.94);
+  --pink-primary: #ff5b79;
+  --pink-hover: #ff3357;
+  --pink-soft: #ffe4eb;
+  --orange-accent: #ff8e3c;
+  --gold-accent: #d4a32e;
+  --text-main: #3d232e;
+  --text-muted: #856171;
+  --border-cute: rgba(255, 142, 166, 0.35);
+
+  --shadow-bubble: 0 14px 34px rgba(255, 91, 121, 0.16);
+  --shadow-card: 0 20px 50px rgba(74, 25, 41, 0.14);
+  --shadow-glow: 0 0 24px rgba(255, 91, 121, 0.4);
+
+  --radius-card: 32px;
+  --radius-pill: 999px;
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-main);
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background floating cute shapes */
+.floating-bg-decor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  background-image: 
+    radial-gradient(#ffccd5 1.5px, transparent 1.5px),
+    radial-gradient(#ffd8a8 1.5px, transparent 1.5px);
+  background-size: 36px 36px;
+  background-position: 0 0, 18px 18px;
+  opacity: 0.35;
+}
+
+/* ==========================================================================
+   TOP BAR: COUPLE BADGE & TRACKER
+   ========================================================================== */
+.app-top-bar {
+  position: fixed;
+  top: 12px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+.couple-badge {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 2px solid #ffd1dc;
+  box-shadow: var(--shadow-bubble);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.cat-chip {
+  padding: 2px 6px;
+  border-radius: 12px;
+}
+.white-chip { background: #fff0f5; color: #a12b50; }
+.orange-chip { background: #fff3e6; color: #b85d18; }
+.love-link { font-size: 14px; animation: heartBeat 1.4s infinite; }
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+
+.story-tracker {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  border: 2px solid #ffd1dc;
+  box-shadow: var(--shadow-bubble);
+}
+
+.step-pill {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-bounce);
+}
+
+.step-pill .pill-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffd9e2;
+  color: var(--pink-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+.step-pill.active {
+  background: var(--pink-primary);
+  color: #ffffff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 91, 121, 0.35);
+}
+.step-pill.active .pill-dot {
+  background: #ffffff;
+  color: var(--pink-primary);
+}
+
+.cute-sound-btn {
+  pointer-events: auto;
+  border: 2px solid #ffd1dc;
+  background: rgba(255, 255, 255, 0.92);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: var(--shadow-bubble);
+  transition: all 0.2s var(--ease-bounce);
+}
+.cute-sound-btn:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
+/* ==========================================================================
+   SLIDER & STORY CARDS ENGINE
+   ========================================================================== */
+.story-viewport {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.story-track {
+  display: flex;
+  width: 600vw;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.story-slide {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 68px 16px 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* The Cute Presentation Deck Card */
+.cute-card-deck {
+  width: 100%;
+  max-width: 520px;
+  background: var(--card-bg);
+  border: 3px solid #ffe1e8;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 24px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin: auto;
+  animation: cardFloatIn 0.5s var(--ease-bounce);
+}
+
+@keyframes cardFloatIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-ribbon {
+  background: linear-gradient(135deg, #ff758c 0%, #ff5b79 100%);
+  color: #ffffff;
+  font-family: var(--font-title);
+  font-size: 13.5px;
+  font-weight: 800;
+  padding: 7px 20px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 14px rgba(255, 91, 121, 0.3);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.gold-ribbon {
+  background: linear-gradient(135deg, #f5d061 0%, #e5a924 100%);
+  color: #4a2c00;
+}
+
+/* ==========================================================================
+   HERO VIDEO / IMAGE IN THE MIDDLE (CRITICAL REQUIREMENT)
+   ========================================================================== */
+.video-center-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.cute-media-frame {
+  position: relative;
+  width: 320px;
+  max-width: 88vw;
+  border-radius: 28px;
+  border: 5px solid #ffffff;
+  box-shadow: 0 16px 36px rgba(255, 91, 121, 0.22), 0 2px 8px rgba(0,0,0,0.06);
+  background: #ffffff;
+  overflow: visible;
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+.cute-media-frame:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* Cat Ears on Video Frame */
+.frame-ears {
+  position: absolute;
+  top: -14px;
+  width: 30px;
+  height: 24px;
+  background: #ffd3dc;
+  border: 3px solid #ffffff;
+  border-radius: 12px 12px 0 0;
+  z-index: 2;
+}
+.frame-ears::after {
+  content: '';
+  position: absolute;
+  inset: 3px 4px 0 4px;
+  background: #ff859d;
+  border-radius: 8px 8px 0 0;
+}
+.frame-ears.left-ear {
+  left: 24px;
+  transform: rotate(-18deg);
+}
+.frame-ears.right-ear {
+  right: 24px;
+  transform: rotate(18deg);
+}
+
+.hero-video {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 22px;
+  display: block;
+}
+
+.hero-image {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 22px;
+  display: block;
+}
+
+.frame-tag-chip {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 2px solid #ffccd5;
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--pink-primary);
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   CUTE BUTTONS & INTERACTIVE ELEMENTS
+   ========================================================================== */
+.cute-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ff758c 0%, #ff5b79 100%);
+  color: #ffffff;
+  font-family: var(--font-title);
+  font-size: 15.5px;
+  font-weight: 800;
+  padding: 13px 26px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(255, 91, 121, 0.35);
+  transition: all 0.25s var(--ease-bounce);
+}
+
+.cute-pill-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(255, 91, 121, 0.45);
+}
+
+.cute-pill-btn:active {
+  transform: translateY(1px);
+}
+
+.large-pink-btn {
+  font-size: 17px;
+  padding: 15px 32px;
+}
+
+.green-glow-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35);
+}
+
+.red-heart-btn {
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  font-size: 17px;
+  padding: 15px 30px;
+}
+
+.cute-ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #ffffff;
+  color: var(--text-main);
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  border: 2px solid #ffd1dc;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s var(--ease-bounce);
+}
+
+.cute-ghost-btn:hover {
+  background: #fff5f8;
+  border-color: var(--pink-primary);
+  transform: translateY(-2px);
+}
+
+.pulse-glow {
+  animation: pulseGlowAnimation 2.2s infinite ease-in-out;
+}
+
+@keyframes pulseGlowAnimation {
+  0%, 100% {
+    box-shadow: 0 8px 22px rgba(255, 91, 121, 0.35);
+  }
+  50% {
+    box-shadow: 0 12px 30px rgba(255, 91, 121, 0.65), 0 0 18px rgba(255, 182, 193, 0.8);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   SCREEN 1: EXACT INSTAGRAM MESSENGER THEME (FROM SCREENSHOT)
+   ========================================================================== */
+.ig-real-theme-phone {
+  width: 100%;
+  background: #1e191d;
+  border: 3px solid #3d323b;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+}
+
+.ig-real-header {
+  background: #2b232a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ig-real-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ig-arrow-back {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.ig-real-pfp-wrapper {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #443743;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #ff9ebb;
+  box-shadow: 0 0 10px rgba(255, 158, 187, 0.3);
+}
+
+.ig-anime-avatar {
+  font-size: 20px;
+}
+
+.ig-real-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.ig-real-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ig-contact-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+}
+
+.ig-handle-caption {
+  font-size: 11px;
+  color: #bfa8b8;
+  font-weight: 600;
+}
+
+.ig-real-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ig-ico {
+  font-size: 17px;
+  color: #ffffff;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: transform 0.2s var(--ease-bounce);
+}
+.ig-ico:hover {
+  transform: scale(1.15);
+  opacity: 1;
+}
+
+.ig-replay-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  border-radius: var(--radius-pill);
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-bounce);
+}
+.ig-replay-btn:hover {
+  background: var(--pink-primary);
+  transform: scale(1.08);
+}
+
+/* Pinned Voice Message Banner */
+.ig-pinned-banner {
+  background: #414e2c;
+  padding: 6px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.pinned-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #e3ebd2;
+}
+
+.pin-icon {
+  font-size: 13px;
+}
+
+/* Custom Tree Wallpaper Chat Stream (Matching Screenshot) */
+.ig-theme-stream {
+  position: relative;
+  height: 290px;
+  overflow-y: auto;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scroll-behavior: smooth;
+  /* Whimsical Romantic Tree & Dusk Sky Wallpaper */
+  background: 
+    radial-gradient(circle at 50% 40%, rgba(105, 75, 57, 0.45) 0%, rgba(56, 40, 30, 0.85) 100%),
+    linear-gradient(180deg, #d48092 0%, #b86074 55%, #3d4a2a 85%, #2d381c 100%);
+  background-blend-mode: multiply;
+  background-size: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Watermark Tree Embroidery Motif */
+.ig-theme-stream::before {
+  content: '🤎\A  🌸  ✿  🌸  \A  🐾  ';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 42px;
+  white-space: pre;
+  text-align: center;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* Chat Bubbles Exact Colors */
+.pink-msg-bubble {
+  align-self: flex-end;
+  background: #fca5b9;
+  color: #1f1418;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 15px;
+  border-radius: 20px;
+  max-width: 80%;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+  word-break: break-word;
+  animation: bubblePop 0.3s var(--ease-bounce) forwards;
+}
+
+.ig-heart-react {
+  position: absolute;
+  bottom: -9px;
+  right: 12px;
+  background: #1e191d;
+  border: 1.5px solid #fca5b9;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.ig-seen-text {
+  align-self: flex-end;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #ffd8e2;
+  margin: -2px 4px 4px 0;
+  opacity: 0.9;
+}
+
+.black-msg-bubble-row {
+  align-self: flex-start;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  max-width: 80%;
+  animation: bubblePop 0.3s var(--ease-bounce) forwards;
+}
+
+.row-mini-avatar {
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.black-msg-bubble {
+  background: #201e21;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 15px;
+  border-radius: 18px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Typing Indicator in Dark Theme */
+.ig-typing-indicator-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.ig-typing-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffd4de;
+}
+
+.ig-typing-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #262227;
+  padding: 5px 10px;
+  border-radius: 14px;
+}
+
+.ig-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fca5b9;
+  animation: typingBounce 1.2s infinite ease-in-out;
+}
+.ig-dot:nth-child(1) { animation-delay: 0s; }
+.ig-dot:nth-child(2) { animation-delay: 0.2s; }
+.ig-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Interactive Reply Tray */
+.ig-reply-tray {
+  background: #282126;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 14px;
+}
+
+.tray-title {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #ff9ebb;
+  margin-bottom: 6px;
+}
+
+.tray-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ig-choice-pill {
+  background: #392f37;
+  border: 1.5px solid #ff9ebb;
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-bounce);
+}
+.ig-choice-pill:hover {
+  background: #fca5b9;
+  color: #1f1418;
+  transform: translateX(4px);
+}
+
+/* Bottom Instagram Bar */
+.ig-input-bar {
+  background: #282227;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ig-camera-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ea5784;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s var(--ease-bounce), background-color 0.2s ease;
+}
+
+.ig-camera-circle:hover {
+  transform: scale(1.12);
+  background: #ff3357;
+}
+
+.ig-fake-input {
+  flex: 1;
+  background: #383037;
+  border-radius: var(--radius-pill);
+  padding: 7px 14px;
+}
+
+.input-placeholder {
+  font-size: 13px;
+  color: #a395a0;
+  font-weight: 600;
+}
+
+.ig-input-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: #ffffff;
+  cursor: pointer;
+  opacity: 0.92;
+}
+
+.ig-input-tools span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s var(--ease-bounce), color 0.2s ease;
+}
+
+.ig-input-tools span:hover {
+  transform: scale(1.22);
+  color: #ff9ebb;
+}
+
+.card-footer-action {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.full-width-pill {
+  width: 100%;
+}
+
+/* ==========================================================================
+   SCREEN 2: VISUAL NOVEL CHOICES
+   ========================================================================== */
+.vn-interactive-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vn-speech-bubble {
+  background: #ffffff;
+  border: 2px solid #ffd1dc;
+  border-radius: 20px;
+  padding: 12px 16px;
+  position: relative;
+  box-shadow: 0 4px 14px rgba(255, 91, 121, 0.08);
+}
+
+.speaker-tag {
+  font-size: 12px;
+  font-weight: 800;
+  color: #e66012;
+  margin-bottom: 4px;
+}
+
+.speaker-text {
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--text-main);
+}
+
+.choice-feedback {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: var(--pink-soft);
+  border-radius: 16px;
+  border: 1.5px solid var(--pink-primary);
+  animation: bubblePop 0.3s ease;
+}
+
+.feedback-reaction {
+  font-size: 14px;
+  font-weight: 800;
+  color: #b81944;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.choice-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.small-pill {
+  padding: 6px 14px;
+  font-size: 12px;
+}
+
+.countdown-tag {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--pink-primary);
+  margin-top: 6px;
+}
+
+.cute-choice-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cute-option-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 2px solid #ffd8e0;
+  padding: 10px 14px;
+  border-radius: 18px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.25s var(--ease-bounce);
+}
+
+.cute-option-card:hover {
+  background: #fff0f4;
+  border-color: var(--pink-primary);
+  transform: translateX(6px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(255, 91, 121, 0.16);
+}
+
+.cute-option-card:active {
+  transform: scale(0.97);
+}
+
+.option-emoji {
+  font-size: 26px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.option-info strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.option-info small {
+  display: block;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   SCREEN 3: TAP-TO-FORGIVE BURRITO GAME (POLISHED & RESPONSIVE)
+   ========================================================================== */
+.tap-game-card {
+  max-width: 480px;
+  width: 100%;
+  padding: 18px 20px 16px;
+  box-shadow: 0 16px 40px rgba(255, 91, 121, 0.18), 0 2px 10px rgba(0, 0, 0, 0.04);
+  border: 3px solid #ffccd7;
+}
+
+.tap-game-card .card-ribbon {
+  margin-bottom: 10px;
+}
+
+.burrito-instructions {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.burrito-title {
+  font-family: var(--font-title);
+  font-size: 17.5px;
+  font-weight: 800;
+  color: #d62253;
+  margin-bottom: 3px;
+  line-height: 1.25;
+  text-shadow: 0 1px 2px rgba(255, 91, 121, 0.12);
+}
+
+.burrito-desc {
+  font-size: 12px;
+  color: #6d5460;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+/* Cute High-Contrast Love & Temperature Meter */
+.cute-meter-box {
+  width: 100%;
+  background: linear-gradient(180deg, #ffffff 0%, #fff7f9 100%);
+  border: 2px solid #ffccd7;
+  border-radius: 18px;
+  padding: 8px 14px;
+  box-shadow: 0 4px 14px rgba(255, 91, 121, 0.08);
+}
+
+.meter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.meter-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 800;
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid #bfdbfe;
+  transition: all 0.3s ease;
+}
+
+.meter-num {
+  font-family: var(--font-title);
+  font-size: 14.5px;
+  font-weight: 900;
+  color: #ff3357;
+  background: #fff0f3;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid #ffccd7;
+}
+
+.cute-meter-track {
+  width: 100%;
+  height: 14px;
+  background: #f1e4eb;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12);
+  border: 1px solid #ffd1dc;
+  position: relative;
+}
+
+.cute-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #60a5fa 0%, #f472b6 45%, #ff3357 85%, #ff758c 100%);
+  border-radius: var(--radius-pill);
+  transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 12px rgba(255, 51, 87, 0.6);
+  position: relative;
+}
+
+.cute-meter-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: meterShine 2s infinite linear;
+}
+
+@keyframes meterShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.meter-milestones {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 700;
+  color: #8a6c78;
+  margin-top: 4px;
+  padding: 0 2px;
+}
+
+.milestone-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.9;
+}
+
+/* Burrito Target Center Container with dedicated headroom */
+.game-center-target {
+  margin-top: 26px;
+  margin-bottom: 8px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.burrito-frame {
+  position: relative;
+  width: 280px;
+  max-width: 84vw;
+  border-radius: 26px;
+  border: 4.5px solid #ffffff;
+  box-shadow: 0 12px 30px rgba(255, 91, 121, 0.22), 0 2px 8px rgba(0,0,0,0.06);
+  background: #ffffff;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s ease;
+  overflow: visible;
+}
+
+.burrito-frame:hover {
+  transform: scale(1.025);
+  box-shadow: 0 16px 36px rgba(255, 91, 121, 0.32);
+}
+
+.burrito-frame:active {
+  transform: scale(0.97);
+}
+
+.burrito-frame .hero-image {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 20px;
+  display: block;
+}
+
+/* Dynamic Burrito Live Mood Balloon - Perfectly Spaced & Styled */
+.burrito-mood-bubble {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  max-width: 90%;
+  background: #ffffff;
+  border: 2px solid #ff758c;
+  padding: 5px 14px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(255, 117, 140, 0.28);
+  z-index: 10;
+  pointer-events: none;
+  animation: floatMood 2.4s infinite ease-in-out;
+}
+
+.burrito-mood-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 7px 7px 0;
+  border-style: solid;
+  border-color: #ff758c transparent transparent;
+  display: block;
+  width: 0;
+}
+
+.burrito-mood-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0;
+  border-style: solid;
+  border-color: #ffffff transparent transparent;
+  display: block;
+  width: 0;
+  z-index: 1;
+}
+
+.mood-quote {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #a81c45;
+  display: block;
+  text-align: center;
+  line-height: 1.3;
+  white-space: normal;
+}
+
+@keyframes floatMood {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
+
+/* Squish & Jiggle Physics */
+.burrito-frame.squish {
+  animation: burritoSquishBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes burritoSquishBounce {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.15, 0.85) rotate(-3deg); }
+  45% { transform: scale(0.88, 1.14) rotate(2deg); }
+  70% { transform: scale(1.05, 0.96) rotate(-1deg); }
+  85% { transform: scale(0.98, 1.02); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Treat Quick Toolbar */
+.burrito-treat-toolbar {
+  width: 100%;
+  margin-top: 6px;
+  background: linear-gradient(180deg, #ffffff 0%, #fff7fa 100%);
+  border: 1.5px dashed #ffb3c4;
+  border-radius: 18px;
+  padding: 7px 10px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(255, 91, 121, 0.05);
+}
+
+.treat-label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #d62253;
+  margin-bottom: 5px;
+}
+
+.treat-buttons-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cute-treat-btn {
+  background: #ffffff;
+  border: 1.5px solid #ffccd7;
+  border-radius: var(--radius-pill);
+  padding: 5px 11px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #4a2d39;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.22s var(--ease-bounce);
+  box-shadow: 0 2px 6px rgba(255, 91, 121, 0.08);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cute-treat-btn:hover {
+  background: linear-gradient(135deg, #ff758c 0%, #ff5b79 100%);
+  border-color: #ff5b79;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 14px rgba(255, 91, 121, 0.3);
+}
+
+.cute-treat-btn:active {
+  transform: scale(0.93);
+}
+
+.treat-ico {
+  font-size: 14px;
+}
+
+.tap-me-floater {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 2px solid var(--pink-primary);
+  color: var(--pink-primary);
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-title);
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 6px 18px rgba(255, 91, 121, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: floatBadge 1.8s infinite ease-in-out;
+  white-space: nowrap;
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* Floating Perk Badges Spawned on Tap */
+.floating-perk {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  background: rgba(255, 255, 255, 0.98);
+  border: 2px solid #ff5b79;
+  color: #c41e4c;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 8px 24px rgba(255, 91, 121, 0.35);
+  white-space: nowrap;
+  animation: floatPerkAnim 1.1s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+  will-change: transform, opacity;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes floatPerkAnim {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(1.12);
+    opacity: 1;
+  }
+  80% {
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 60px)) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 95px)) scale(0.85);
+    opacity: 0;
+  }
+}
+
+/* Floating Hearts Spawn */
+.floating-heart {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  font-size: 32px;
+  filter: drop-shadow(0 4px 8px rgba(255, 91, 121, 0.4));
+  animation: floatHeartAnim 1.2s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes floatHeartAnim {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 60px)) scale(1.4) rotate(var(--rot, 15deg));
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 130px)) scale(1.8) rotate(calc(var(--rot, 15deg) * 2));
+    opacity: 0;
+  }
+}
+
+/* Celebration Success Banner */
+.burrito-success {
+  background: linear-gradient(135deg, #ecfdf5 0%, #fff1f2 100%);
+  border: 2.5px solid #10b981;
+  border-radius: 20px;
+  padding: 12px 16px;
+  text-align: center;
+  margin-top: 10px;
+  width: 100%;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2);
+  animation: bubblePop 0.4s var(--ease-bounce);
+}
+
+.burrito-success .sparkle-icons {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 2px;
+  animation: bounce 1s infinite alternate;
+}
+
+.burrito-success h4 {
+  font-size: 15px;
+  color: #047857;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.burrito-success p {
+  font-size: 12px;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   SCREEN 4: SWEET APOLOGY LETTER
+   ========================================================================= */
+.sweet-letter-box {
+  width: 100%;
+  background: #fffbf9;
+  border: 2px solid #ffd4de;
+  border-radius: 24px;
+  padding: 20px 20px 16px;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(255, 91, 121, 0.08);
+}
+
+.wax-heart-stamp {
+  position: absolute;
+  top: -16px;
+  left: 20px;
+  font-size: 26px;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+}
+
+.letter-greeting {
+  font-family: var(--font-hand);
+  font-size: 26px;
+  color: var(--pink-primary);
+  margin-bottom: 8px;
+}
+
+.letter-paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #452a36;
+}
+
+.letter-vow-quote {
+  font-family: var(--font-hand);
+  font-size: 21px;
+  font-weight: 700;
+  color: #a81c47;
+  background: #ffeaf0;
+  padding: 8px 14px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.letter-action-row {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+.letter-action-row .cute-pill-btn {
+  width: 100%;
+}
+
+/* ==========================================================================
+   SCREEN 5: PROPOSAL & SIGNATURE PAD
+   ========================================================================== */
+.proposal-action-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ring-status-banner {
+  background: #ffffff;
+  border: 2px solid #ffe1a8;
+  border-radius: 18px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(212, 163, 46, 0.12);
+}
+
+.ring-icon-spin {
+  font-size: 24px;
+  animation: heartBeat 2s infinite;
+}
+
+.ring-status-banner p {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #7a4e08;
+}
+
+.cute-ring-btn {
+  background: linear-gradient(135deg, #f7d070 0%, #d4a32e 100%);
+  color: #ffffff;
+  font-family: var(--font-title);
+  font-size: 15px;
+  font-weight: 800;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(212, 163, 46, 0.35);
+  transition: all 0.2s var(--ease-bounce);
+}
+
+.cute-ring-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.cute-sig-section {
+  background: #ffffff;
+  border: 2px solid #ffd1dc;
+  border-radius: 22px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sig-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sig-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pink-primary);
+}
+
+.canvas-cute-container {
+  position: relative;
+  width: 100%;
+  background: #fffcfd;
+  border: 2px dashed #ff9bb0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+#signatureCanvas {
+  display: block;
+  width: 100%;
+  height: 140px;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.canvas-empty-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  font-size: 12px;
+  color: #bfa0ad;
+  text-align: center;
+  width: 80%;
+  transition: opacity 0.2s ease;
+}
+
+.sig-btn-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.sig-btn-bar .cute-pill-btn {
+  flex: 1;
+}
+
+/* ==========================================================================
+   SCREEN 6: THE DIGITAL VIRTUAL MARRIAGE CERTIFICATE
+   ========================================================================== */
+.cert-deck {
+  max-width: 620px;
+  padding: 20px 18px;
+}
+
+.cute-wedding-certificate {
+  position: relative;
+  width: 100%;
+  background: #fffdfa;
+  border: 6px double #f2ca6b;
+  border-radius: 22px;
+  padding: 20px 16px;
+  box-shadow: 0 10px 30px rgba(212, 163, 46, 0.15);
+}
+
+.cert-paw {
+  position: absolute;
+  font-size: 22px;
+  color: #e5b33b;
+  pointer-events: none;
+}
+.cert-paw.tl { top: 6px; left: 8px; }
+.cert-paw.tr { top: 6px; right: 8px; transform: scaleX(-1); }
+.cert-paw.bl { bottom: 6px; left: 8px; transform: scaleY(-1); }
+.cert-paw.br { bottom: 6px; right: 8px; transform: scale(-1); }
+
+.cert-head {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.cert-crown {
+  font-size: 20px;
+  color: #d4a32e;
+}
+
+.cert-main-headline {
+  font-family: var(--font-title);
+  font-size: 21px;
+  font-weight: 900;
+  color: #4a2818;
+  letter-spacing: 0.5px;
+}
+
+.cert-sub-headline {
+  font-family: var(--font-hand);
+  font-size: 26px;
+  color: var(--pink-primary);
+  margin-top: -2px;
+}
+
+.pink-ribbon-divider {
+  font-size: 15px;
+  color: #ff9bb0;
+  margin: 4px 0 8px;
+}
+
+.cert-intro-text {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 12px;
+}
+
+.couple-highlight-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.cat-spouse-block {
+  text-align: center;
+  flex: 1;
+}
+
+.spouse-avatar {
+  font-size: 26px;
+}
+
+.spouse-name {
+  font-family: var(--font-hand);
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.her-name { color: #b81944; }
+.him-name { color: #e66012; }
+
+.spouse-tag {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.love-union-middle {
+  text-align: center;
+}
+
+.rings-union {
+  font-size: 22px;
+  display: block;
+}
+
+.union-label {
+  font-size: 9.5px;
+  font-weight: 900;
+  color: #d4a32e;
+  letter-spacing: 1px;
+}
+
+.covenant-card {
+  background: #fff6f8;
+  border: 1.5px dashed #ffd1dc;
+  border-radius: 14px;
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #4d2b38;
+  margin-bottom: 16px;
+}
+
+.cert-signatures-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: 1px solid #f2ca6b;
+  padding-top: 12px;
+  gap: 10px;
+}
+
+.sig-block {
+  flex: 1;
+  text-align: center;
+}
+
+.field-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: #946d1b;
+  text-transform: uppercase;
+}
+
+.field-value {
+  font-family: var(--font-hand);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cute-gold-line {
+  width: 100%;
+  height: 1px;
+  background: #f2ca6b;
+  margin: 3px 0 4px;
+}
+
+.field-note {
+  font-size: 9.5px;
+  color: #9c808d;
+}
+
+/* Cute Gold Stamp */
+.cute-gold-stamp {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe699 0%, #e5b33b 70%, #b88614 100%);
+  border: 2px dashed #6b4d02;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(184, 134, 20, 0.3);
+}
+
+.stamp-stars {
+  font-size: 6px;
+  color: #4a3400;
+  font-weight: 900;
+}
+.stamp-icon {
+  font-size: 15px;
+  line-height: 1.1;
+}
+.stamp-text {
+  font-size: 6.5px;
+  font-weight: 900;
+  color: #4a3400;
+}
+
+.sig-holder-box {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.injected-sig-img {
+  max-height: 38px;
+  max-width: 130px;
+  object-fit: contain;
+}
+
+.fallback-sig {
+  font-family: var(--font-hand);
+  font-size: 22px;
+  font-weight: 700;
+  color: #b81944;
+}
+
+.final-actions-row {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.final-actions-row .cute-pill-btn {
+  flex: 1 1 100%;
+}
+
+/* ==========================================================================
+   DATE CLAIM MODAL
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 10, 20, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.25s ease;
+}
+
+.cute-modal-box {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  border-radius: var(--radius-card);
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  animation: cardFloatIn 0.35s var(--ease-bounce);
+}
+
+.modal-close-icon {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: #ffe6ec;
+  color: var(--pink-primary);
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s var(--ease-bounce);
+}
+.modal-close-icon:hover {
+  background: var(--pink-primary);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.modal-cute-emoji {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.modal-title {
+  font-family: var(--font-title);
+  font-size: 20px;
+  color: var(--pink-primary);
+  margin-bottom: 6px;
+}
+
+.modal-desc {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-main);
+  margin-bottom: 14px;
+}
+
+.date-menu-perks {
+  background: #fff0f5;
+  border: 1.5px solid #ffd1dc;
+  border-radius: 18px;
+  padding: 12px 14px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.menu-item {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7a1532;
+}
+
+.modal-btn-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.full-btn {
+  width: 100%;
+  text-decoration: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Print Style */
+@media print {
+  .app-top-bar, .final-actions-row, .modal-overlay, .floating-bg-decor {
+    display: none !important;
+  }
+  body, html {
+    background: #ffffff !important;
+    overflow: visible !important;
+  }
+  .story-viewport, .story-track, .story-slide {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    position: static !important;
+    transform: none !important;
+    padding: 0 !important;
+  }
+  #slide1, #slide2, #slide3, #slide4, #slide5 {
+    display: none !important;
+  }
+  #slide6 {
+    display: block !important;
+  }
+  .cute-card-deck {
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .app-top-bar {
+    padding: 0 10px;
+  }
+  .couple-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+  .pill-name {
+    display: none;
+  }
+  .step-pill {
+    padding: 4px;
+  }
+  .story-slide {
+    padding: 60px 10px 16px;
+  }
+  .cute-card-deck {
+    padding: 18px 14px;
+    border-radius: 24px;
+  }
+  .hero-video {
+    height: 220px;
+  }
+  .hero-image {
+    height: 230px;
+  }
+  .cute-media-frame {
+    width: 270px;
+  }
+  /* Screen 3 Game Mobile Fit */
+  .tap-game-card {
+    padding: 14px 12px 12px;
+  }
+  .burrito-title {
+    font-size: 15.5px;
+  }
+  .burrito-desc {
+    font-size: 11.5px;
+    margin-bottom: 6px;
+  }
+  .game-center-target {
+    margin-top: 22px;
+    margin-bottom: 6px;
+  }
+  .burrito-frame {
+    width: 250px;
+    border-radius: 22px;
+  }
+  .burrito-frame .hero-image {
+    height: 180px;
+    border-radius: 17px;
+  }
+  .burrito-mood-bubble {
+    top: -24px;
+    padding: 4px 10px;
+    max-width: 95%;
+  }
+  .mood-quote {
+    font-size: 11px;
+  }
+  .tap-me-floater {
+    bottom: 8px;
+    font-size: 11px;
+    padding: 4px 12px;
+  }
+  .burrito-treat-toolbar {
+    padding: 6px 8px;
+  }
+  .cute-treat-btn {
+    padding: 4px 9px;
+    font-size: 11px;
+    gap: 4px;
+  }
+  .meter-milestones {
+    font-size: 9px;
+  }
+  .spouse-name {
+    font-size: 26px;
+  }
+  .cert-main-headline {
+    font-size: 17px;
+  }
+  .cert-sub-headline {
+    font-size: 21px;
+  }
+}

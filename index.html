@@ -1,14 +1,586 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nuray (@nurayberry) &amp; Ongkur (@tanjiro_ka.ma.do) — An Apology for My Darling 💕</title>
+  <meta name="description" content="A cute romantic interactive storybook apology and virtual wedding created by Ongkur for his Darling Nuray.">
+  <meta property="og:title" content="Nuray &amp; Ongkur — An Apology for My Darling 💕">
+  <meta property="og:description" content="A cute romantic interactive storybook apology and virtual wedding created by Ongkur for his Darling Nuray.">
 
-<body>
+  <!-- Google Fonts: Playful, Romantic, Handwritten -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@700&family=Gaegu:wght@400;700&family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&family=Shantell+Sans:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
   
-</body>
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <!-- Ambient Floating Hearts Background -->
+  <div class="floating-bg-decor" id="floatingDecor"></div>
+
+  <!-- Top Romantic Header Bar -->
+  <header class="app-top-bar">
+    <div class="couple-badge">
+      <span class="cat-chip white-chip">To: Darling 😈 (@nurayberry)</span>
+      <span class="love-link">💖</span>
+      <span class="cat-chip orange-chip">From: Ongkur (@tanjiro_ka.ma.do)</span>
+    </div>
+
+    <!-- Cute Step Dots Tracker -->
+    <div class="story-tracker" id="storyTracker">
+      <button class="step-pill active" data-step="1" title="Screen 1: Instagram DM">
+        <span class="pill-dot">1</span>
+        <span class="pill-name">IG DM</span>
+      </button>
+      <button class="step-pill" data-step="2" title="Screen 2: Her Choice">
+        <span class="pill-dot">2</span>
+        <span class="pill-name">Choice</span>
+      </button>
+      <button class="step-pill" data-step="3" title="Screen 3: Burrito Love">
+        <span class="pill-dot">3</span>
+        <span class="pill-name">Burrito</span>
+      </button>
+      <button class="step-pill" data-step="4" title="Screen 4: Apology Letter">
+        <span class="pill-dot">4</span>
+        <span class="pill-name">Letter</span>
+      </button>
+      <button class="step-pill" data-step="5" title="Screen 5: The Proposal">
+        <span class="pill-dot">5</span>
+        <span class="pill-name">Ring</span>
+      </button>
+      <button class="step-pill" data-step="6" title="Screen 6: Marriage Certificate">
+        <span class="pill-dot">6</span>
+        <span class="pill-name">Vows</span>
+      </button>
+    </div>
+
+    <!-- Sound Toggle -->
+    <button class="cute-sound-btn" id="soundToggleBtn" aria-label="Toggle Sound">
+      <span id="soundIcon"><i class="fa-solid fa-volume-high"></i></span>
+    </button>
+  </header>
+
+  <!-- Main Story Deck Viewport -->
+  <main class="story-viewport" id="storyViewport">
+    <div class="story-track" id="storyTrack">
+
+      <!-- ============================================== -->
+      <!-- SCREEN 1: THE REAL INSTAGRAM DM CHAT THEME     -->
+      <!-- ============================================== -->
+      <section class="story-slide" id="slide1">
+        <div class="cute-card-deck">
+          <div class="card-ribbon">
+            <span>🐾 Chapter 1: Ongkur Pleading in Your DMs 😿💔</span>
+          </div>
+
+          <!-- Video IN THE MIDDLE -->
+          <div class="video-center-container">
+            <div class="cute-media-frame">
+              <div class="frame-ears left-ear"></div>
+              <div class="frame-ears right-ear"></div>
+              <video class="hero-video" src="/resources/sad_texting.mp4" autoplay loop muted playsinline></video>
+              <div class="frame-tag-chip">
+                <span>😿 Ongkur waiting for his Darling 😈 to reply...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exact Instagram Chat Phone Theme from Screenshot -->
+          <div class="ig-real-theme-phone">
+            <!-- Instagram Header -->
+            <div class="ig-real-header">
+              <div class="ig-real-left">
+                <span class="ig-arrow-back" title="Back"><i class="fa-solid fa-arrow-left"></i></span>
+                <div class="ig-real-pfp-wrapper">
+                  <!-- Anime Avatar from Screenshot -->
+                  <div class="ig-anime-avatar">
+                    <span class="anime-art-emoji">🧕💜</span>
+                  </div>
+                </div>
+                <div class="ig-real-meta">
+                  <div class="ig-real-title-row">
+                    <h4 class="ig-contact-name">Darling 😈</h4>
+                  </div>
+                  <span class="ig-handle-caption" id="chatHeaderStatus">@nurayberry • Active now</span>
+                </div>
+              </div>
+              <div class="ig-real-icons">
+                <span class="ig-ico" title="Group"><i class="fa-solid fa-user-group"></i></span>
+                <span class="ig-ico" title="Call"><i class="fa-solid fa-phone"></i></span>
+                <span class="ig-ico" title="Video"><i class="fa-solid fa-video"></i></span>
+                <button type="button" class="ig-replay-btn" id="btnRestartChat" title="Replay Chat"><i class="fa-solid fa-arrow-rotate-right"></i></button>
+              </div>
+            </div>
+
+            <!-- Pinned Voice Message Banner -->
+            <div class="ig-pinned-banner">
+              <div class="pinned-chip">
+                <span class="pin-icon"><i class="fa-solid fa-thumbtack"></i></span>
+                <span class="pin-label">Voice message</span>
+              </div>
+            </div>
+
+            <!-- Custom Tree Wallpaper Chat Stream -->
+            <div class="ig-theme-stream" id="chatStream">
+              <!-- Animated sequence matching the screenshot -->
+            </div>
+
+            <!-- Live Typing Dots Bubble -->
+            <div class="ig-typing-indicator-bar hidden" id="typingDotsContainer">
+              <span class="ig-typing-label" id="typingNameBadge">Ongkur is typing</span>
+              <div class="ig-typing-bubble">
+                <span class="ig-dot"></span>
+                <span class="ig-dot"></span>
+                <span class="ig-dot"></span>
+              </div>
+            </div>
+
+            <!-- Interactive Reply Options for Nuray (Dry Options) -->
+            <div class="ig-reply-tray hidden" id="chatReplySection">
+              <span class="tray-title">✨ Nuray, choose your dry reply to Ongkur:</span>
+              <div class="tray-options-grid" id="chatReplyOptions">
+                <!-- Dynamically populated buttons -->
+              </div>
+            </div>
+
+            <!-- Bottom Instagram Input Bar -->
+            <div class="ig-input-bar">
+              <div class="ig-camera-circle" title="Camera"><i class="fa-solid fa-camera"></i></div>
+              <div class="ig-fake-input">
+                <span class="input-placeholder">Message...</span>
+              </div>
+              <div class="ig-input-tools">
+                <span title="Voice note"><i class="fa-solid fa-microphone"></i></span>
+                <span title="Send photo"><i class="fa-regular fa-image"></i></span>
+                <span title="Sticker"><i class="fa-regular fa-face-smile"></i></span>
+                <span title="More"><i class="fa-solid fa-circle-plus"></i></span>
+              </div>
+            </div>
+
+            <!-- Card Bottom Action to Proceed -->
+            <div class="card-footer-action">
+              <button class="cute-pill-btn pulse-glow full-width-pill" id="btnExplain">
+                <span>Hear Ongkur's explanation, Darling? 💌🐾</span>
+                <span class="btn-paw">➔</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SCREEN 2: THE VISUAL NOVEL CHOICE              -->
+      <!-- ============================================== -->
+      <section class="story-slide" id="slide2">
+        <div class="cute-card-deck">
+          <div class="card-ribbon">
+            <span>🐾 Chapter 2: How Can Ongkur Win You Back? 🥺</span>
+          </div>
+
+          <!-- Video IN THE MIDDLE -->
+          <div class="video-center-container">
+            <div class="cute-media-frame">
+              <div class="frame-ears left-ear"></div>
+              <div class="frame-ears right-ear"></div>
+              <video class="hero-video" src="/resources/ignoring_me.mp4" autoplay loop muted playsinline></video>
+              <div class="frame-tag-chip">
+                <span>🙈 You're giving Ongkur the cold shoulder!</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dialogue Box & 4 Hilarious Cute Choices for Nuray -->
+          <div class="vn-interactive-box">
+            <div class="vn-speech-bubble" id="vnSpeechBubble">
+              <div class="speaker-tag">
+                <span>🐱🧡 Ongkur (@tanjiro_ka.ma.do) — High Court of Darling 😈:</span>
+              </div>
+              <p class="speaker-text" id="vnSpeakerPrompt">
+                "🚨 EMERGENCY SUMMONS! 🚨 Your Royal Highness Nuray... my chubby orange paws are trembling 🥺 What severe punishment must your servant endure to earn back one royal smile?"
+              </p>
+              
+              <!-- Reaction Result -->
+              <div class="choice-feedback hidden" id="choiceFeedback">
+                <p class="feedback-reaction" id="feedbackReactionText"></p>
+                <div class="choice-actions-row">
+                  <button type="button" class="cute-pill-btn small-pill" id="btnAdvanceToBurrito">
+                    <span>Thaw the grumpy burrito now 🌯➔</span>
+                  </button>
+                  <button type="button" class="cute-ghost-btn small-pill" id="btnTryAnotherPunishment">
+                    <span>Try another punishment on Ongkur 😈</span>
+                  </button>
+                </div>
+                <span class="countdown-tag" id="choiceCountdown">Auto-proceeding in 3s... 💕</span>
+              </div>
+            </div>
+
+            <!-- The 3 Fun Choices for Nuray to command Ongkur -->
+            <div class="cute-choice-grid" id="choiceGrid">
+              <button class="cute-option-card" data-choice="dance">
+                <span class="option-emoji">🕺🐾</span>
+                <div class="option-info">
+                  <strong>The Clumsy Chubby Cat Belly Dance</strong>
+                  <small>Wiggle chubby tummy while meowing an apology ballad in off-pitch falsetto</small>
+                </div>
+              </button>
+
+              <button class="cute-option-card" data-choice="always_right">
+                <span class="option-emoji">📜🥺</span>
+                <div class="option-info">
+                  <strong>Declare 'Nuray Is Always Right' 1,000 Times</strong>
+                  <small>Drop to knees, give 100 forehead kisses &amp; swear to never win an argument</small>
+                </div>
+              </button>
+
+              <button class="cute-option-card" data-choice="butler">
+                <span class="option-emoji">👑💆‍♀️</span>
+                <div class="option-info">
+                  <strong>Sign Lifetime 24/7 Personal Butler Cat Contract</strong>
+                  <small>Pre-warm blankets, peel grapes, foot massages &amp; zero talking back forever</small>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SCREEN 3: THE TAP-TO-FORGIVE GAME              -->
+      <!-- ============================================== -->
+      <section class="story-slide" id="slide3">
+        <div class="cute-card-deck tap-game-card" id="tapGameContainer">
+          <div class="card-ribbon">
+            <span>🐾 Chapter 3: Thaw The Grumpy Burrito 🌯🤍</span>
+          </div>
+
+          <div class="burrito-instructions">
+            <h3 class="burrito-title">Nuray (@nurayberry) is a cozy grumpy burrito! 🌯💕</h3>
+            <p class="burrito-desc">She wrapped herself in blankets and refuses to talk! Tap or treat her 10 times to thaw her heart:</p>
+            
+            <!-- Dynamic Temperature & Love Meter -->
+            <div class="cute-meter-box">
+              <div class="meter-header">
+                <span class="meter-text" id="burritoTempLabel">❄️ Mood: Ice Cold Pout (-10°C)</span>
+                <span class="meter-num" id="loveCounterDisplay">0 / 10 ❤️</span>
+              </div>
+              <div class="cute-meter-track">
+                <div class="cute-meter-fill" id="loveFillBar" style="width: 0%"></div>
+              </div>
+              <div class="meter-milestones">
+                <span class="milestone-step">❄️ Grumpy</span>
+                <span class="milestone-step">🌤️ Wiggling</span>
+                <span class="milestone-step">🌸 Blushing</span>
+                <span class="milestone-step">💖 Pure Love!</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Blanket Burrito IN THE MIDDLE with Live Thought Bubble -->
+          <div class="video-center-container game-center-target">
+            <div class="cute-media-frame burrito-frame" id="burritoFrame">
+              <div class="frame-ears left-ear"></div>
+              <div class="frame-ears right-ear"></div>
+              
+              <!-- Dynamic Burrito Mood Bubble -->
+              <div class="burrito-mood-bubble" id="burritoMoodBubble">
+                <span class="mood-quote" id="burritoMoodQuote">"😾 Hmph! Do not disturb. Nuray is asleep and mad!"</span>
+              </div>
+
+              <img src="/resources/blanket_burrito.jpg" alt="White kitten in a blanket burrito" class="hero-image" id="burritoImage">
+              
+              <div class="tap-me-floater" id="tapPromptBadge">
+                <span>👇 SQUISH ME HERE! 💖</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Treat Spam Buttons to Feed the Burrito -->
+          <div class="burrito-treat-toolbar">
+            <span class="treat-label">✨ Or feed your burrito treats to thaw faster:</span>
+            <div class="treat-buttons-row">
+              <button type="button" class="cute-treat-btn" id="btnTreatSalmon" data-type="salmon">
+                <span class="treat-ico">🍣</span>
+                <span>Salmon Nigiri</span>
+              </button>
+              <button type="button" class="cute-treat-btn" id="btnTreatBoba" data-type="boba">
+                <span class="treat-ico">🧋</span>
+                <span>Brown Sugar Boba</span>
+              </button>
+              <button type="button" class="cute-treat-btn" id="btnTreatScratch" data-type="scratch">
+                <span class="treat-ico">🐾</span>
+                <span>Chin Scratch</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Success Notification (Revealed at 10 taps) -->
+          <div class="burrito-success hidden" id="burritoSuccessAlert">
+            <span class="sparkle-icons">✨🥰🎉</span>
+            <h4>Burrito 100% Thawed with Infinite Love!</h4>
+            <p>Nuray is smiling and purring now! Opening Ongkur's heartfelt letter...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SCREEN 4: THE FINAL APOLOGY LETTER             -->
+      <!-- ============================================== -->
+      <section class="story-slide" id="slide4">
+        <div class="cute-card-deck letter-deck">
+          <div class="card-ribbon">
+            <span>🐾 Chapter 4: From Ongkur's Heart To Yours 💌</span>
+          </div>
+
+          <!-- Video IN THE MIDDLE -->
+          <div class="video-center-container">
+            <div class="cute-media-frame hug-frame">
+              <div class="frame-ears left-ear"></div>
+              <div class="frame-ears right-ear"></div>
+              <video class="hero-video" src="/resources/happy_hug.mp4" autoplay loop muted playsinline></video>
+              <div class="frame-tag-chip">
+                <span>🥰 Ongkur hugging his Darling 😈 tightly!</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sweet Handwritten Apology Card from Ongkur to Nuray -->
+          <div class="sweet-letter-box">
+            <div class="wax-heart-stamp">💌</div>
+            <h3 class="letter-greeting">Dearest Nuray (@nurayberry),</h3>
+            
+            <div class="letter-paragraphs">
+              <p>
+                My Darling 😈, you are the brightest light in my life, my safest home, and my favorite person in the entire world. 
+                Whenever I upset you or mess up, my whole universe feels heavy and incomplete.
+              </p>
+              <p>
+                You deserve gentle hugs, endless forehead kisses, your favorite snacks, and a boy who cherishes 
+                every single little thing about you. I promise to listen better, love you harder, and always make 
+                sure you feel adored.
+              </p>
+              <div class="letter-vow-quote">
+                “Will you forgive your chubby orange cat, my Darling?” 🐾🧡
+              </div>
+              <p class="letter-sender-signoff">
+                Forever devoted to you,<br>
+                <strong>Your boy, Ongkur 🐱🧡 (@tanjiro_ka.ma.do)</strong>
+              </p>
+            </div>
+
+            <div class="letter-action-row">
+              <button class="cute-pill-btn large-pink-btn pulse-glow" id="btnForgive">
+                <span>I forgive you, Ongkur 🤍✨</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SCREEN 5: THE PROPOSAL & SIGNATURE PAD         -->
+      <!-- ============================================== -->
+      <section class="story-slide" id="slide5">
+        <div class="cute-card-deck proposal-deck">
+          <div class="card-ribbon">
+            <span>🐾 Chapter 5: Ongkur's Grand Proposal 💍</span>
+          </div>
+
+          <!-- Video IN THE MIDDLE -->
+          <div class="video-center-container">
+            <div class="cute-media-frame ring-frame">
+              <div class="frame-ears left-ear"></div>
+              <div class="frame-ears right-ear"></div>
+              <video class="hero-video" src="/resources/proposing_with_ring.mp4" autoplay loop muted playsinline></video>
+              <div class="frame-tag-chip">
+                <span>💍 Ongkur presenting the ring to Nuray</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proposal & Ring Interactive Box -->
+          <div class="proposal-action-box">
+            <div class="ring-status-banner" id="ringBanner">
+              <span class="ring-icon-spin" id="ringEmojiIcon">💍</span>
+              <p id="ringStatusMsg">Ongkur (@tanjiro_ka.ma.do) is on one knee holding this sparkling diamond ring for you...</p>
+            </div>
+
+            <button class="cute-ring-btn" id="btnPutRing">
+              <span>💍 Put the ring on my finger ✨</span>
+            </button>
+
+            <!-- Signature Pad Box for Nuray -->
+            <div class="cute-sig-section">
+              <div class="sig-title-row">
+                <span class="feather-pen"><i class="fa-solid fa-pen-fancy"></i></span>
+                <label for="signatureCanvas" class="sig-label">Nuray's Signature: Sign to make it official!</label>
+              </div>
+
+              <div class="canvas-cute-container">
+                <canvas id="signatureCanvas" width="480" height="150"></canvas>
+                <div class="canvas-empty-hint" id="canvasHintText">
+                  <span>Nuray, sign your name or cute initials here with touch or mouse 💖</span>
+                </div>
+              </div>
+
+              <div class="sig-btn-bar">
+                <button type="button" class="cute-ghost-btn" id="btnClearSig">
+                  <span><i class="fa-solid fa-trash-can"></i> Clear</span>
+                </button>
+                <button type="button" class="cute-pill-btn green-glow-btn" id="btnSubmitWedding">
+                  <span><i class="fa-solid fa-heart"></i> I Do (Marry Ongkur!)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SCREEN 6: THE DIGITAL CERTIFICATE              -->
+      <!-- ============================================== -->
+      <section class="story-slide" id="slide6">
+        <div class="cute-card-deck cert-deck">
+          <div class="card-ribbon gold-ribbon">
+            <span>👑 Official Feline Love Registry 👑</span>
+          </div>
+
+          <!-- The Official Cute Marriage Certificate -->
+          <div class="cute-wedding-certificate" id="officialCertificate">
+            <!-- Ornate Corner Paws -->
+            <div class="cert-paw tl">🐾</div>
+            <div class="cert-paw tr">🐾</div>
+            <div class="cert-paw bl">🐾</div>
+            <div class="cert-paw br">🐾</div>
+
+            <div class="cert-inner-content">
+              <div class="cert-head">
+                <span class="cert-crown">👑 ✨ 👑</span>
+                <h1 class="cert-main-headline">Certificate of Eternal Forgiveness</h1>
+                <h2 class="cert-sub-headline">&amp; Virtual Marriage</h2>
+                <div class="pink-ribbon-divider">
+                  <span>🎀 ~ • ~ 🎀</span>
+                </div>
+              </div>
+
+              <p class="cert-intro-text">
+                Be it known to all kingdoms, cuddly cats, and pretty flowers that:
+              </p>
+
+              <!-- Couple Highlight Banner: Nuray (Bride) & Ongkur (Groom) -->
+              <div class="couple-highlight-box">
+                <div class="cat-spouse-block">
+                  <span class="spouse-avatar">🐱🤍</span>
+                  <h3 class="spouse-name her-name">Nuray</h3>
+                  <span class="spouse-tag">Darling 😈</span>
+                  <span class="spouse-role-badge">👰 THE BRIDE</span>
+                </div>
+
+                <div class="love-union-middle">
+                  <span class="rings-union">💍💞💍</span>
+                  <span class="union-label">UNITED FOREVER</span>
+                </div>
+
+                <div class="cat-spouse-block">
+                  <span class="spouse-avatar">🐱🧡</span>
+                  <h3 class="spouse-name him-name">Ongkur</h3>
+                  <span class="spouse-tag">Her Chubby Orange Kitty</span>
+                  <span class="spouse-role-badge groom-badge">🤵 THE GROOM</span>
+                </div>
+              </div>
+
+              <div class="covenant-card">
+                <p>
+                  Ongkur is officially forgiven forever. In return, Ongkur vows to provide 
+                  lifetime cuddling rights, unlimited forehead kisses, delicious treats on demand, 
+                  and shared cozy blankets with Nuray forever and ever!
+                </p>
+              </div>
+
+              <!-- Footer with Date, Seal, and Injected Signature -->
+              <div class="cert-signatures-row">
+                <div class="sig-block date-block">
+                  <span class="field-title">Date of Vows:</span>
+                  <p class="field-value" id="certDateDisplay">October 22, 2026</p>
+                  <div class="cute-gold-line"></div>
+                  <span class="field-note">Under the Whisker Stars</span>
+                </div>
+
+                <div class="sig-block seal-block">
+                  <div class="cute-gold-stamp">
+                    <span class="stamp-stars">★ ★ ★</span>
+                    <span class="stamp-icon">💍🐾</span>
+                    <span class="stamp-text">100% FORGIVEN</span>
+                  </div>
+                </div>
+
+                <div class="sig-block bride-sig-block">
+                  <span class="field-title">Nuray's Signature:</span>
+                  <div class="sig-holder-box">
+                    <img id="injectedSignature" src="" alt="Digital Signature" class="injected-sig-img hidden">
+                    <span class="fallback-sig" id="sigFallbackText">Nuray ♡ (Signed)</span>
+                  </div>
+                  <div class="cute-gold-line"></div>
+                  <span class="field-note">Duly Signed by the Bride</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons: Nuray claims date from Ongkur -->
+          <div class="final-actions-row">
+            <button class="cute-pill-btn red-heart-btn pulse-glow" id="btnClaimDate">
+              <span>🌹 Nuray, claim your date from Ongkur in real life!</span>
+            </button>
+            <button class="cute-ghost-btn" id="btnSaveCert">
+              <span><i class="fa-solid fa-camera"></i> Save / Print Certificate</span>
+            </button>
+            <button class="cute-ghost-btn" id="btnReplay">
+              <span><i class="fa-solid fa-arrow-rotate-right"></i> Replay Our Story</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Interactive Real Life Date Claim Modal for Nuray -->
+  <div class="modal-overlay hidden" id="dateClaimModal">
+    <div class="modal-card cute-modal-box">
+      <button class="modal-close-icon" id="modalCloseBtn" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-cute-emoji">🍣🥂🌹✨</div>
+      <h3 class="modal-title">Nuray's Luxury Date Voucher!</h3>
+      <p class="modal-desc">
+        As decreed in your Certificate of Marriage, <strong>Ongkur (@tanjiro_ka.ma.do)</strong> 
+        is officially obligated to treat <strong>Nuray (@nurayberry)</strong> like the queen she is!
+      </p>
+
+      <div class="date-menu-perks">
+        <div class="menu-item">🍱 Unlimited sushi &amp; sweet treats (Ongkur's treat!)</div>
+        <div class="menu-item">🧋 Large boba with all your favorite toppings</div>
+        <div class="menu-item">🌹 Red roses and cute surprises</div>
+        <div class="menu-item">🎬 Cozy movie night, forehead kisses &amp; cuddles</div>
+      </div>
+
+      <div class="modal-btn-stack">
+        <!-- Direct Instagram DM to Ongkur (@tanjiro_ka.ma.do) -->
+        <a href="https://ig.me/m/tanjiro_ka.ma.do" target="_blank" rel="noopener noreferrer" class="cute-pill-btn full-btn ig-gradient-btn" id="btnRealMessenger">
+          <span><i class="fa-brands fa-instagram"></i> DM @tanjiro_ka.ma.do on Instagram to schedule!</span>
+        </a>
+        <a href="https://instagram.com/tanjiro_ka.ma.do" target="_blank" rel="noopener noreferrer" class="cute-ghost-btn full-btn">
+          <span><i class="fa-brands fa-instagram"></i> View Ongkur's Instagram Profile</span>
+        </a>
+        <button type="button" class="cute-ghost-btn full-btn" id="btnCloseModal">
+          <span>Admire my certificate 💕</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
 </html>
